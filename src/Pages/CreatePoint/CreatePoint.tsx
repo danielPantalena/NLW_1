@@ -5,6 +5,7 @@ import { FiArrowLeft } from 'react-icons/fi';
 import './CreatePoint.css';
 
 import logo from '../../assets/logo.svg';
+import Mapa from './Map/Map';
 
 const CreatePoint = () => {
   return (
@@ -50,7 +51,7 @@ const CreatePoint = () => {
             <h2>Endereço</h2>
             <span>Selecione o endereço no mapa</span>
           </legend>
-
+          <Mapa />
           <div className="field-group">
             <div className="field">
               <label htmlFor="uf">Estado (UF)</label>

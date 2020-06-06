@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import Home from './Pages/Home/Home';
+
+// JSX: Sintaxe de XML dentro do JavaScript
 
 function App() {
-  return (
-    <h1>LET'S GO NEXT LEVEL WEEK!!!</h1>
-  );
+  return <Home />;
 }
 
 export default App;

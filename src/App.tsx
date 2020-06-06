@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Home from './Pages/Home/Home';
+import Routes from './routes';
+
 
 // JSX: Sintaxe de XML dentro do JavaScript
 
 function App() {
-  return <Home />;
+  return <Routes />;
 }
 
 export default App;

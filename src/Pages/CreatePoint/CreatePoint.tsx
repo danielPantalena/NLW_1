@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
 import axios from 'axios';
@@ -28,21 +28,27 @@ interface IGBEcityApiResponse {
 }
 
 const CreatePoint = () => {
-  // Setting state variables
+  //  SETTING VARIABLES
+  //    STATE VARIABLES
+  //      All options
   const [items, setItems] = React.useState<Item[]>([]);
-  const [selectedItems, setSelectedItems] = React.useState<number[]>([]);
-  const [ufs, setUfs] = React.useState<string[]>([]);
-  const [selectedUf, setSelectedUf] = React.useState('0');
-  const [cities, setCities] = React.useState<string[]>([]);
-  const [selectedCity, setSelectedCity] = React.useState('0');
   const [initialPosition, setInitialPosition] = React.useState<[number, number]>([0, 0]);
+  const [ufs, setUfs] = React.useState<string[]>([]);
+  const [cities, setCities] = React.useState<string[]>([]);
+  //      Selected options
+  const [selectedItems, setSelectedItems] = React.useState<number[]>([]);
   const [selectedPosition, setSelectedPosition] = React.useState<[number, number]>([0, 0]);
-  const [formData, setFormaData] = React.useState({
+  const [selectedUf, setSelectedUf] = React.useState('0');
+  const [selectedCity, setSelectedCity] = React.useState('0');
+  //      Input text data
+  const [formData, setFormData] = React.useState({
     name: '',
     email: '',
     whatsapp: '',
   });
-
+  //  import { Link, useHistory } from 'react-router-dom';
+  const history = useHistory();
+  
   // USE EFFECTS
   // Load Items
   React.useEffect(() => {
@@ -103,11 +109,34 @@ const CreatePoint = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormaData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    const { name, email, whatsapp } = formData;
+    const uf = selectedUf;
+    const city = selectedCity;
+    const [latitude, longitude] = selectedPosition;
+    const items = selectedItems;
+
+    const data = {
+      name,
+      email,
+      whatsapp,
+      uf,
+      city,
+      latitude,
+      longitude,
+      items,
+    };
+
+    await api.post('points', data);
+
+    alert('Ponto de coleta criado!')
+
+    history.push('/');
   };
 
   return (
